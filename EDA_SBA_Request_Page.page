@@ -7,9 +7,6 @@
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     crossorigin="anonymous"></link>
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css">
-  </link>
   <!-- <apex:stylesheet value="{!URLFOR($Resource.formStyle, 'formStyle.css')}" /> -->
 
   <apex:pageBlock >
@@ -20,21 +17,42 @@
 
     <div class="container form-container">
       <div class="form-container-inner">
-        <apex:form enctype="multipart/form-data" id="theForm">
+        <apex:pageBlock rendered="{!success}">
+          <div class="success-block">
+            <i class="icon ion-checkmark-circled"></i>
+            <h2>Your response has been recorded successfully!</h2>
+          </div>
+        </apex:pageBlock>
+        <apex:form enctype="multipart/form-data" id="theForm" rendered="{!NOT(success)}">
           <apex:pageBlock mode="edit">
-            <apex:pageMessages id="pageMessages" />
-            <apex:pageBlockButtons >
-              <apex:commandButton value="Save" action="{!createObject}" />
-            </apex:pageBlockButtons>
+
+            <div class="form-row">
+              <h1>University of Illinois EDA University Center Small Business Assistance Request Form</h1>
+            </div>
+
+            <div class="form-row">
+              <span class="block-h">Submission Information</span>
+            </div>
+
+            <div class="form-row">
+              <span class="block-p">Thank you for your interest in the University of Illinois EDA Small Business Assistance Program. We are pleased to offer project assistance to startups in Illinois associated with higher education incubators AND/OR companies referred by qualified entrepreneurial centers in downstate Illinois. We will review each project on a competitive basis for selection for completion. All projects must have an entrepreneur center referral partner to be selected and must be reviewed by our team based on the resources we have available. We will prioritize high-growth potential businesses with products vs. services.</span>
+            </div>
+
+            <!-- <div class="alert alert-danger" role="alert">...</div> -->
+            <apex:pageMessages id="pageMessages" escape="false" />
+
             <!-- <apex:pageBlockSection columns="1" showHeader="true"> -->
               <apex:repeat value="{!fieldNames}" var="FieldName" >
-                <div class="row form-row">
+                <div class="form-row">
+                  <apex:pageBlock rendered="{!CONTAINS(FieldName, '---')}"><hr /></apex:pageBlock>
                   <apex:outputText value="{!MID(FieldName, 3, 65535)}" rendered="{!CONTAINS(FieldName, 'h:')}" styleClass="block-h"></apex:outputText>
                   <apex:outputText value="{!MID(FieldName, 3, 65535)}" rendered="{!CONTAINS(FieldName, 'p:')}" styleClass="block-p"></apex:outputText>
                   <apex:pageBlock rendered="{!CONTAINS(FieldName, '__c')}">
                       <div class="form-group form-component">
-                        <apex:outputText rendered="{!NOT($ObjectType.EDA_SBA_Request__c.fields[FieldName].Nillable)}" value="*" styleClass="block-require"></apex:outputText>
-                        <apex:outputText styleClass="input-label" value="{!$ObjectType.EDA_SBA_Request__c.fields[FieldName].InlineHelpText}" />
+                        <div class="instruction">
+                          <apex:outputText rendered="{!NOT($ObjectType.EDA_SBA_Request__c.fields[FieldName].Nillable)}" value="*" styleClass="block-require"></apex:outputText>
+                          <apex:outputText styleClass="input-label" value="{!$ObjectType.EDA_SBA_Request__c.fields[FieldName].InlineHelpText}" />
+                        </div>
                         <!-- <apex:pageBlockSectionItem > -->
                             <apex:inputField styleClass="form-control" value="{!refObject[FieldName]}" />
                         <!-- </apex:pageBlockSectionItem> -->
@@ -44,6 +62,14 @@
               </apex:repeat>
             <!-- </apex:pageBlockSection> -->
           </apex:pageBlock>
+
+
+          <div class="form-row submit-section">
+            <div class="form-group col-md-12 form-component" style="text-align: center;">
+              <apex:commandButton id="save" value="Submit Form" styleClass="btn btn-default" action="{!createObject}"/>
+            </div>
+          </div>
+
         </apex:form>
       </div>
     </div>
@@ -58,12 +84,11 @@
   src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
   integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
   crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
 
 <style type="text/css">
 body {
-  background: #F3E4B2;
-  background: linear-gradient(-30deg, #F3E4B2, #7A853B);
+  background: #7793AE;
+  /*background: linear-gradient(-30deg, #F3E4B2, #7A853B) no-repeat;*/
 }
 
 header, footer {
@@ -137,18 +162,19 @@ h1, h2, h3 {
 }
 
 .submit-section {
-  margin-top: 1rem;
+  padding: 1.5rem 0 1rem 0;
+  overflow: hidden;
 }
 
-.form-control, .bootstrap-switch, .btn {
+.form-control[type="text"], select.form-control, .bootstrap-switch, .btn {
   border-radius: 2px;
   box-shadow: 0 1px 0 0 rgba(0,0,0,.1);
   transition: box-shadow .1s ease;
 }
-.form-control:hover {
+.form-control[type="text"]:hover, select.form-control:hover {
   box-shadow: 0 1px 1px 0 rgba(0,0,0,.15);
 }
-.form-control:focus {
+.form-control[type="text"]:focus, select.form-control:focus {
   box-shadow: 0 2px 5px 0px rgba(0,0,0,.2);
 }
 
@@ -159,7 +185,23 @@ h1, h2, h3 {
 .block-require {
   font-weight: 600;
   color: red;
-  padding-right: 5px;
+  padding-right: .5em;
+}
+
+.instruction {
+  padding: .5em 0;
+}
+
+.success-block {
+  text-align: center;
+  padding: 5em 0;
+}
+
+.success-block > i {
+  color: #67C23A;
+  /* padding: 2em 0; */
+  font-size: 6em;
+  display: inline-block;
 }
 
 </style>
