@@ -50,6 +50,19 @@ To get your familiar with the salesforce, here are some basic components.
 
 **TODO**
 
+### Accessibility to Public
+
+**TODO**
+
 ### Email Notification
+
+To send an email notification to either the user who submitted the form or the manager who will review the requests,
+
+1. Create email template. Goto `Communication Templates -> Email Templates`, and create a new template with the content you wish to send to the user or the manager.
+2. Create workflow. Goto `Workflow & Approvals -> Email Alerts`, and create a new action, select the template you just created and the recipients
+3. Create rule. Goto `Workflow & Approvals -> Workflow Rules`, and create a new rule. Select the related object and choose criteria, then check the related action.
+4. Finally deploy to production, then active it.
+
+### Advanced: SPA
 
 **TODO**
