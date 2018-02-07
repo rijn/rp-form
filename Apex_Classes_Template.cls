@@ -1,10 +1,10 @@
-public without sharing class EDA_SBA_Request_Controller {
-  public EDA_SBA_Request__c refObject {get; set;}
+public without sharing class Apex_Classes_Template {
+  public CUSTOM_OBJECT_API_NAME refObject {get; set;}
   public List<String> fieldNames {get; set;}
   public Boolean success {get; set;}
 
-  public EDA_SBA_Request_Controller () {
-    refObject = new EDA_SBA_Request__c();
+  public Apex_Classes_Template () {
+    refObject = new CUSTOM_OBJECT_API_NAME();
     fieldNames = new List<String>{
       '---',
       'h:Company Contact Information',
@@ -49,8 +49,8 @@ public without sharing class EDA_SBA_Request_Controller {
       'Effectiveless__c',
       'Deadline__c'
 
-      //'---',
-      //'Receipt_Email__c'
+      '---',
+      'Receipt_Email__c'
     };
     success = false;
   }
@@ -59,7 +59,6 @@ public without sharing class EDA_SBA_Request_Controller {
     try {
       insert refObject;
       success = true;
-      //return new PageReference('/' + refObject.id);
     } catch (Exception ex) {
       ApexPages.Message msg = new ApexPages.Message(ApexPages.Severity.Error, ex.getMessage());
       ApexPages.addMessage(msg);
@@ -67,12 +66,12 @@ public without sharing class EDA_SBA_Request_Controller {
     return null;
   }
 
-  public EDA_SBA_Request__c getObject (String id) {
+  public CUSTOM_OBJECT_API_NAME getObject (String id) {
     String soql = 'Select id ';
     for(String fieldName : fieldNames){
       soql = soql + ', ' + fieldName;
     }
-    soql = soql + ' From EDA_SBA_Request__c where id = :id';
-    return (EDA_SBA_Request__c)Database.Query(soql);
+    soql = soql + ' From CUSTOM_OBJECT_API_NAME where id = :id';
+    return (CUSTOM_OBJECT_API_NAME)Database.Query(soql);
   }
 }

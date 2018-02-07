@@ -44,11 +44,48 @@ To get your familiar with the salesforce, here are some basic components.
 
 ### Form Template
 
+This repository provide you a basic form template. It's built on several open source libraries such as jQuery and BootStarp. I suggest to editing on this base since it can provide many general well-designed modules and there is no need to rewrite them.
+
+The form is consisted by the following parts:
+
+- Custom Object: Information to be collected and prompts.
+- Visualforce Page: UI
+- Apex Classes: Verify and save information.
+
+You **have to** complete at least these three parts, if you needs more customization such as email notification or SPA, please follow the rest part of the document.
+
+*Make sure you are working in sandboxes*
+
+#### Custom Object
+
+The first step is to define a custom object which could save the information you wish to collected. It could also provide some additional prompt text.
+
+1. Goto `Create -> Objects` under `Setup` tab. Click on `New Custom Object` to create a new object.
+	![](im/4.png)
+2. Follow the instruction and the example, type in the name and label. You do not need to modify any fields other than the required one. Click `Save`.
+3. Create or modified the fields under the `Custom Fields & Relationships` tab.
+	![](im/5.png)
+4. There're two fields important and need to be remembered. `API Name` will be used in the Apex Classes, and `Help Text` will be displayed on the webpage.
+	![](im/6.png)
+
+#### Apex Classes
+
+1. Create an Apex Classes, copy and paste the Apex_Classes_Template.
+2. Replace all `CUSTOM_OBJECT_API_NAME` with the API Name of the object you just created.
+	![](im/7.png)
+
+#### Visualforce Page
+
 **TODO**
 
 ### Deployment to Production
 
-**TODO**
+Salesforce uses a mechanism called "Inbound / Outbound"
+
+1. Log into your sandbox. Goto `Deploy -> Outbound Change Sets`.
+2. Create a new change set, add the component you wish to apply to master. And add its dependencies.
+	![](im/3.png)
+3. Upload the change set.
 
 ### Accessibility to Public
 

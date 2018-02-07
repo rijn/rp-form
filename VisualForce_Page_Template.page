@@ -1,4 +1,4 @@
-<apex:page controller="EDA_SBA_Request_Controller" showHeader="false" standardStylesheets="false" docType="html-5.0">
+<apex:page controller="Apex_Classes_Template" showHeader="false" standardStylesheets="false" docType="html-5.0">
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" />
   <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" />
@@ -7,7 +7,6 @@
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     crossorigin="anonymous"></link>
-  <!-- <apex:stylesheet value="{!URLFOR($Resource.formStyle, 'formStyle.css')}" /> -->
 
   <apex:pageBlock >
 
@@ -27,15 +26,15 @@
           <apex:pageBlock mode="edit">
 
             <div class="form-row">
-              <h1>University of Illinois EDA University Center Small Business Assistance Request Form</h1>
+              <h1>__FORM_TITLE__</h1>
             </div>
 
             <div class="form-row">
-              <span class="block-h">Submission Information</span>
+              <span class="block-h">__ADDITIONAL_SECTION__</span>
             </div>
 
             <div class="form-row">
-              <span class="block-p">Thank you for your interest in the University of Illinois EDA Small Business Assistance Program. We are pleased to offer project assistance to startups in Illinois associated with higher education incubators AND/OR companies referred by qualified entrepreneurial centers in downstate Illinois. We will review each project on a competitive basis for selection for completion. All projects must have an entrepreneur center referral partner to be selected and must be reviewed by our team based on the resources we have available. We will prioritize high-growth potential businesses with products vs. services.</span>
+              <span class="block-p">__ADDITIONAL_INFORMATION__</span>
             </div>
 
             <!-- <div class="alert alert-danger" role="alert">...</div> -->
@@ -50,8 +49,8 @@
                   <apex:pageBlock rendered="{!CONTAINS(FieldName, '__c')}">
                       <div class="form-group form-component">
                         <div class="instruction">
-                          <apex:outputText rendered="{!NOT($ObjectType.EDA_SBA_Request__c.fields[FieldName].Nillable)}" value="*" styleClass="block-require"></apex:outputText>
-                          <apex:outputText styleClass="input-label" value="{!$ObjectType.EDA_SBA_Request__c.fields[FieldName].InlineHelpText}" />
+                          <apex:outputText rendered="{!NOT($ObjectType.CUSTOM_OBJECT_API_NAME.fields[FieldName].Nillable)}" value="*" styleClass="block-require"></apex:outputText>
+                          <apex:outputText styleClass="input-label" value="{!$ObjectType.CUSTOM_OBJECT_API_NAME.fields[FieldName].InlineHelpText}" />
                         </div>
                         <!-- <apex:pageBlockSectionItem > -->
                             <apex:inputField styleClass="form-control" value="{!refObject[FieldName]}" />
