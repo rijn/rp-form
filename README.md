@@ -70,13 +70,29 @@ The first step is to define a custom object which could save the information you
 
 #### Apex Classes
 
-1. Create an Apex Classes, copy and paste the Apex_Classes_Template.
+1. Create an Apex Classes, copy and paste the `Apex_Classes_Template.cls`.
 2. Replace all `CUSTOM_OBJECT_API_NAME` with the API Name of the object you just created.
 	![](im/7.png)
+3. You need to fill the `fieldName` in Apex Classes so the backend could pass the reference to the client.
+    For example, for the following `fieldName`
+    ```
+      '---',
+      'h:Referral Partner\'s Contact Information',
+      'p:All requests for small business assistant services must come from referrals from partners including; incubators, SBDC, PTAC offices, ITCs, University of Illinois Extension Offices, or higher education entrepreneurial programs.',
+      'Referring_Partner_s_Name_Organization__c',
+      'Referring_Partner_s_Phone__c',
+      'Referring_Partner_s_Email__c',
+    ```
+    `---` will be an horizontal line in the page, `h:xxx` will be a header with bold and larger font, `p:xxx` will be the prompt text, and other fields s.t. `Referring_Partner_s_Phone__c` should be the field API name that you defined before.
 
 #### Visualforce Page
 
-**TODO**
+1. Create a VisualForce Page, copy and past the `VisualForce_Page_Template.page`.
+2. Replace all `CUSTOM_OBJECT_API_NAME` with the API Name of the object you just created.
+3. The title and the introduction section can be customized. Replace the following section to modify them.
+    - `__FORM_TITLE__`
+    - `__ADDITIONAL_SECTION__`
+    - `__ADDITIONAL_INFORMATION__`
 
 ### Deployment to Production
 
